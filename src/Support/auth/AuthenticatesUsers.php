@@ -33,12 +33,6 @@ use Tymon\JWTAuth\Facades\JWTAuth;
  */
 trait AuthenticatesUsers
 {
-
-    /**
-     * @var array custom claims
-     */
-    protected $custom = array();
-
     /**
      * Handle a login request to the application.
      *
@@ -62,7 +56,7 @@ trait AuthenticatesUsers
 
         $credentials = $this->getCredentials($request);
 
-        if ($token = JWTAuth::attempt($credentials, $this->custom)) {
+        if ($token = JWTAuth::attempt($credentials, $this->custom())) {
             return $this->handleUserWasAuthenticated($request, $throttles, $token);
         }
 
@@ -142,5 +136,15 @@ trait AuthenticatesUsers
         return in_array(
             ThrottlesLogins::class, class_uses_recursive(get_class($this))
         );
+    }
+
+    /**
+     * Get the custom claims
+     *
+     * @return string
+     */
+    public function customClaims()
+    {
+        return property_exists($this, 'custom') ? $this->custom : '';
     }
 }
