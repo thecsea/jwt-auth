@@ -28,5 +28,7 @@ namespace Tymon\JWTAuth\Support\auth;
  */
 trait AuthenticatesAndRegistersUsers
 {
-    use AuthenticatesUsers, RegistersUsers;
+    use AuthenticatesUsers, RegistersUsers{
+        AuthenticatesUsers::custom insteadof RegistersUsers;
+    };
 }
