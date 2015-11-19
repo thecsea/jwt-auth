@@ -13,11 +13,12 @@ class GetUserAndRefresh extends BaseMiddleware
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  Array $custom custom claims that must be equals
+     * @param  String $custom custom claims that must be equals (format: key1-ele1;key2-ele2)
      * @return mixed
      */
-    public function handle($request, \Closure $next, $custom =  [])
+    public function handle($request, \Closure $next, $custom = '')
     {
+        $custom = $this->convertToArray($custom);
         if($token = $this->auth->setRequest($request)->getToken()) {
         }else if ($this->auth->getUserModel()){
             $token = $this->auth->fromUser($this->auth->getUserModel(), $custom);

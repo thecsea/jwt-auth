@@ -52,4 +52,20 @@ abstract class BaseMiddleware
 
         return $response ?: $this->response->json(['error' => $error], $status);
     }
+
+
+    /**
+     * Convert to array a string passed as argument of a middleware in this way key1-ele1;key2-ele2
+     * @param String $str
+     * @return array
+     */
+    protected function convertToArray($str){
+        $ret = [];
+        $str = explode(';', $str);
+        foreach($str as $value) {
+            $tmp = explode('-', $value);
+            $ret[$tmp[0]] = $tmp[1];
+        }
+        return $ret;
+    }
 }
