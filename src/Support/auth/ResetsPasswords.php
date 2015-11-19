@@ -117,7 +117,7 @@ trait ResetsPasswords
 
         $user->save();
 
-        $token = JWTAuth::fromUser($user, $this->custom());
+        $token = JWTAuth::fromUser($user, $this->customClaims());
 
         return new JsonResponse(['token' => $token], 200);
 

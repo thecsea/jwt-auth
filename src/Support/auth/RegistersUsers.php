@@ -48,7 +48,7 @@ trait RegistersUsers
             );
         }
 
-        $token = JWTAuth::fromUser($this->create($request->all()), $this->custom());
+        $token = JWTAuth::fromUser($this->create($request->all()), $this->customClaims());
 
         return new JsonResponse(['token' => $token], 200);
     }

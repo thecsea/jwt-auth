@@ -56,7 +56,7 @@ trait AuthenticatesUsers
 
         $credentials = $this->getCredentials($request);
 
-        if ($token = JWTAuth::attempt($credentials, $this->custom())) {
+        if ($token = JWTAuth::attempt($credentials, $this->customClaims())) {
             return $this->handleUserWasAuthenticated($request, $throttles, $token);
         }
 
