@@ -145,6 +145,6 @@ trait AuthenticatesUsers
      */
     public function customClaims()
     {
-        return property_exists($this, 'custom') ? $this->custom : '';
+        return property_exists($this, 'custom') ? $this->custom : [];
     }
 }
