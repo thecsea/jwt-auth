@@ -14,12 +14,12 @@ class RefreshToken extends BaseMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, \Closure $next)
+    public function handle($request, \Closure $next, $custom =  [])
     {
         $response = $next($request);
 
         try {
-            $newToken = $this->auth->setRequest($request)->parseToken()->refresh();
+            $newToken = $this->auth->setRequest($request)->parseToken()->refresh(false, $custom);
         } catch (TokenExpiredException $e) {
             return $this->respond('tymon.jwt.expired', 'token_expired', $e->getStatusCode(), [$e]);
         } catch (JWTException $e) {

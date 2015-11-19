@@ -82,9 +82,11 @@ class JWTManager
      * Refresh a Token and return a new Token
      *
      * @param  \Tymon\JWTAuth\Token  $token
+     * @param Array $custom
+     *
      * @return \Tymon\JWTAuth\Token
      */
-    public function refresh(Token $token)
+    public function refresh(Token $token, $custom= [])
     {
         $payload = $this->setRefreshFlow()->decode($token);
 
@@ -93,12 +95,12 @@ class JWTManager
             $this->blacklist->add($payload);
         }
 
+        //add custom
+        $custom = array_merge($custom, ['sub' => $payload['sub'],'iat' => $payload['iat']]);
+
         // return the new token
         return $this->encode(
-            $this->payloadFactory->make([
-                'sub' => $payload['sub'],
-                'iat' => $payload['iat']
-            ])
+            $this->payloadFactory->make($custom)
         );
     }
 

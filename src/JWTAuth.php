@@ -163,14 +163,15 @@ class JWTAuth
      * Refresh an expired token.
      *
      * @param mixed $token
+     * @param Array $custom
      *
      * @return string
      */
-    public function refresh($token = false)
+    public function refresh($token = false, $custom = [])
     {
         $this->requireToken($token);
 
-        return $this->manager->refresh($this->token)->get();
+        return $this->manager->refresh($this->token, $custom)->get();
     }
 
     /**
