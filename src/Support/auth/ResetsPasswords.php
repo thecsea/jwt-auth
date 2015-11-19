@@ -36,6 +36,11 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 trait ResetsPasswords
 {
     /**
+     * @var array custom claims
+     */
+    protected $custom = array();
+
+    /**
      * Send a reset link to the given user.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -116,7 +121,7 @@ trait ResetsPasswords
 
         $user->save();
 
-        $token = JWTAuth::fromUser($user);
+        $token = JWTAuth::fromUser($user, $this->custom);
 
         return new JsonResponse(['token' => $token], 200);
 

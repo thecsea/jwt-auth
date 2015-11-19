@@ -33,6 +33,11 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 trait RegistersUsers
 {
     /**
+     * @var array custom claims
+     */
+    protected $custom = array();
+
+    /**
      * Handle a registration request for the application.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -48,7 +53,7 @@ trait RegistersUsers
             );
         }
 
-        $token = JWTAuth::fromUser($this->create($request->all()));
+        $token = JWTAuth::fromUser($this->create($request->all()), $this->custom);
 
         return new JsonResponse(['token' => $token], 200);
     }
