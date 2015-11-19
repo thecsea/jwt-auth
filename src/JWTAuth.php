@@ -183,10 +183,11 @@ class JWTAuth
 
     /**
      * Parse the token from the request.
-     *
+     * @param string $method
+     * @param string $header
      * @param string $query
-     *
      * @return JWTAuth
+     * @throws JWTException
      */
     public function parseToken($method = 'bearer', $header = 'authorization', $query = 'token')
     {
@@ -293,6 +294,7 @@ class JWTAuth
      * Set the request instance.
      *
      * @param Request $request
+     * @return $this
      */
     public function setRequest(Request $request)
     {
