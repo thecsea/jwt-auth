@@ -40,6 +40,12 @@ class JWTAuth
      */
     protected $token;
 
+
+    /**
+     * @var \Illuminate\Database\Eloquent\Model
+     */
+    protected $userModel = null;
+
     /**
      * @param \Tymon\JWTAuth\JWTManager                   $manager
      * @param \Tymon\JWTAuth\Providers\User\UserInterface $user
@@ -55,6 +61,24 @@ class JWTAuth
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getUserModel()
+    {
+        return $this->userModel;
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Model $userModel
+     */
+    public function setUserModel($userModel)
+    {
+        $this->userModel = $userModel;
+    }
+
+
+
+    /**
      * Find a user using the user identifier in the subject claim.
      *
      * @param bool|string $token
@@ -63,6 +87,9 @@ class JWTAuth
      */
     public function toUser($token = false)
     {
+        if(!$token && $this->getUserModel())
+            return $this->getUserModel();
+
         $payload = $this->getPayload($token);
 
         if (! $user = $this->user->getBy($this->identifier, $payload['sub'])) {
@@ -114,6 +141,9 @@ class JWTAuth
      */
     public function authenticate($token = false, $custom = [])
     {
+        if(!$token && $this->getUserModel())
+            return $this->getUserModel();
+
         $payload = $this->getPayload($token);
         $id = $payload->get('sub');
 
