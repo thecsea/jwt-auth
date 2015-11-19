@@ -3,6 +3,7 @@
 namespace Tymon\JWTAuth;
 
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\Auth\AuthInterface;
 use Tymon\JWTAuth\Providers\User\UserInterface;
@@ -93,6 +94,7 @@ class JWTAuth
      * @param array $customClaims
      *
      * @return false|string
+     * @throws JWTException
      */
     public function attempt(array $credentials = [], array $customClaims = [])
     {
@@ -107,12 +109,18 @@ class JWTAuth
      * Authenticate a user via a token.
      *
      * @param mixed $token
-     *
+     * @param Array $custom custom claims that must be equals (all custom fields indicated must be equals in token, this doesn't entail that the token must have only these claims)
      * @return mixed
      */
-    public function authenticate($token = false)
+    public function authenticate($token = false, $custom = [])
     {
-        $id = $this->getPayload($token)->get('sub');
+        $payload = $this->getPayload($token);
+        $id = $payload->get('sub');
+
+        foreach($custom as $customK => $customV)
+            if(!isset($payload[$customK]) || $customV != $payload[$customK])
+                return new InvalidClaimException('custom fields are wrong');
+
 
         if (! $this->auth->byId($id)) {
             return false;
