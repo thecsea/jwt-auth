@@ -42,7 +42,7 @@ trait AuthenticatesUsers
     public function postLogin(Request $request)
     {
         $usernames = $this->loginUsername();
-        if(!is_arrary($usernames)) {
+        if(!is_array($usernames)) {
             $usernames = [$usernames];
         }
         $usernamesR = [];
@@ -110,7 +110,7 @@ trait AuthenticatesUsers
     protected function getCredentials(Request $request)
     {
         $usernames = $this->loginUsername();
-        if(!is_arrary($usernames))
+        if(!is_array($usernames))
             $usernames = [$usernames];
         return $request->only(array_merge($usernames, ['password']));
     }

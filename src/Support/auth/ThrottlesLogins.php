@@ -148,7 +148,7 @@ trait ThrottlesLogins
     private function getInputs(Request $request)
     {
         $usernames = $this->loginUsername();
-        if(!is_arrary($usernames)) {
+        if(!is_array($usernames)) {
             $usernames = [$usernames];
         }
 
