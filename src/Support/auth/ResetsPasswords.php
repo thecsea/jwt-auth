@@ -44,9 +44,15 @@ trait ResetsPasswords
      */
     public function postEmail(Request $request)
     {
-        $this->validate($request, ['email' => 'required|email']);
+        $this->validate($request, $this->validator());
 
-        $response = Password::sendResetLink($request->only('email'), function (Message $message) {
+
+        $usernames = $this->loginUsername();
+        if(!is_arrary($usernames)) {
+            $usernames = [$usernames];
+        }
+
+        $response = Password::sendResetLink($request->only($usernames), function (Message $message) {
             $message->subject($this->getEmailSubject());
         });
 
@@ -59,6 +65,16 @@ trait ResetsPasswords
             default:
                 return new JsonResponse(['error' => trans($response)],422);
         }
+    }
+
+    /**
+     * Array for validator
+     *
+     * @return array
+     */
+    protected function validator()
+    {
+        return ['email' => 'required|email'];
     }
 
     /**
@@ -80,14 +96,18 @@ trait ResetsPasswords
      */
     public function postReset(Request $request)
     {
-        $this->validate($request, [
+        $this->validate($request, array_merge($this->validator(), [
             'token' => 'required',
-            'email' => 'required|email',
             'password' => 'required|confirmed|min:6',
-        ]);
+        ]));
+
+        $usernames = $this->loginUsername();
+        if(!is_arrary($usernames)) {
+            $usernames = [$usernames];
+        }
 
         $credentials = $request->only(
-            'email', 'password', 'password_confirmation', 'token'
+            array_merge($usernames , ['password', 'password_confirmation', 'token'])
         );
 
         $intResp = '';
@@ -128,8 +148,19 @@ trait ResetsPasswords
      *
      * @return string
      */
-    public function customClaims()
+    protected function customClaims()
     {
         return property_exists($this, 'custom') ? $this->custom : [];
+    }
+
+    /**
+     * Get the login username to be used by the controller.
+     * it can be an array for multiple username (for example email and phone number)
+     *
+     * @return string|array
+     */
+    public function loginUsername()
+    {
+        return property_exists($this, 'username') ? $this->username : 'email';
     }
 }

@@ -41,9 +41,17 @@ trait AuthenticatesUsers
      */
     public function postLogin(Request $request)
     {
-        $this->validate($request, [
-            $this->loginUsername() => 'required', 'password' => 'required',
-        ]);
+        $usernames = $this->loginUsername();
+        if(!is_arrary($usernames)) {
+            $usernames = [$usernames];
+        }
+        $usernamesR = [];
+        foreach($usernames as $username)
+            $usernamesR[$username] = 'required';
+
+        $this->validate($request, array_merge($usernamesR, [
+             'password' => 'required',
+        ]));
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
@@ -68,7 +76,7 @@ trait AuthenticatesUsers
         }
 
         return new JsonResponse([
-            $this->loginUsername() => $this->getFailedLoginMessage(),
+            implode('.',$usernames) => $this->getFailedLoginMessage(),
         ], 422);
     }
 
@@ -101,7 +109,10 @@ trait AuthenticatesUsers
      */
     protected function getCredentials(Request $request)
     {
-        return $request->only($this->loginUsername(), 'password');
+        $usernames = $this->loginUsername();
+        if(!is_arrary($usernames))
+            $usernames = [$usernames];
+        return $request->only(array_merge($usernames, ['password']));
     }
 
     /**
@@ -118,8 +129,9 @@ trait AuthenticatesUsers
 
     /**
      * Get the login username to be used by the controller.
+     * it can be an array for multiple username (for example email and phone number)
      *
-     * @return string
+     * @return string|array
      */
     public function loginUsername()
     {

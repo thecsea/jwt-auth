@@ -42,7 +42,7 @@ trait ThrottlesLogins
     protected function hasTooManyLoginAttempts(Request $request)
     {
         return app(RateLimiter::class)->tooManyAttempts(
-            $request->input($this->loginUsername()).$request->ip(),
+            $this->getInputs($request).$request->ip(),
             $this->maxLoginAttempts(), $this->lockoutTime() / 60
         );
     }
@@ -56,7 +56,7 @@ trait ThrottlesLogins
     protected function incrementLoginAttempts(Request $request)
     {
         app(RateLimiter::class)->hit(
-            $request->input($this->loginUsername()).$request->ip()
+            $this->getInputs($request).$request->ip()
         );
     }
 
@@ -69,7 +69,7 @@ trait ThrottlesLogins
     protected function retriesLeft(Request $request)
     {
         $attempts = app(RateLimiter::class)->attempts(
-            $request->input($this->loginUsername()).$request->ip()
+            $this->getInputs($request).$request->ip()
         );
 
         return $this->maxLoginAttempts() - $attempts + 1;
@@ -84,11 +84,11 @@ trait ThrottlesLogins
     protected function sendLockoutResponse(Request $request)
     {
         $seconds = app(RateLimiter::class)->availableIn(
-            $request->input($this->loginUsername()).$request->ip()
+            $this->getInputs($request).$request->ip()
         );
 
         return new JsonResponse([
-            $this->loginUsername() => $this->getLockoutErrorMessage($seconds),
+            implode('.',$this->loginUsername()) => $this->getLockoutErrorMessage($seconds),
         ], 422);
     }
 
@@ -114,7 +114,7 @@ trait ThrottlesLogins
     protected function clearLoginAttempts(Request $request)
     {
         app(RateLimiter::class)->clear(
-            $request->input($this->loginUsername()).$request->ip()
+            $this->getInputs($request).$request->ip()
         );
     }
 
@@ -138,4 +138,25 @@ trait ThrottlesLogins
         return property_exists($this, 'lockoutTime') ? $this->lockoutTime : 60;
     }
 
+
+    /**
+     * get username inputs as string
+     *
+     * @param Request $request
+     * @return string
+     */
+    private function getInputs(Request $request)
+    {
+        $usernames = $this->loginUsername();
+        if(!is_arrary($usernames)) {
+            $usernames = [$usernames];
+        }
+
+        $ret = '';
+        foreach($usernames as $username)
+            $ret .= $request->input($username).'.';
+        $ret = substr($ret, 0, -1);
+
+        return $ret;
+    }
 }
