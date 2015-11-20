@@ -35,10 +35,10 @@ trait ActingAs
      * Set the currently logged in user for the application.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  string|null  $driver
+     * @param  string|null  $driver only for the compatibility with the original method
      * @return $this
      */
-    public function actingAs(Authenticatable $user, $driver)
+    public function actingAs(Authenticatable $user, $driver = '')
     {
         JWTAuth::setUserModel($user);
 
