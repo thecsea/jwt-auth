@@ -87,8 +87,12 @@ trait ThrottlesLogins
             $this->getInputs($request).$request->ip()
         );
 
+        $usernames = $this->loginUsername();
+        if(!is_array($usernames)) {
+            $usernames = [$usernames];
+        }
         return new JsonResponse([
-            implode('.',$this->loginUsername()) => $this->getLockoutErrorMessage($seconds),
+            implode('.', $usernames) => $this->getLockoutErrorMessage($seconds),
         ], 422);
     }
 
