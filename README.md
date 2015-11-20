@@ -2,18 +2,22 @@
 
 > JSON Web Token Authentication for Laravel
 
-[![Build Status](http://img.shields.io/travis/tymondesigns/jwt-auth/master.svg?style=flat-square)](https://travis-ci.org/tymondesigns/jwt-auth)
-[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/tymondesigns/jwt-auth.svg?style=flat-square)](https://scrutinizer-ci.com/g/tymondesigns/jwt-auth/)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/tymondesigns/jwt-auth.svg?style=flat-square)](https://scrutinizer-ci.com/g/tymondesigns/jwt-auth/code-structure)
-[![StyleCI](https://styleci.io/repos/23680678/shield?style=flat-square)](https://styleci.io/repos/23680678)
-[![HHVM](https://img.shields.io/hhvm/tymon/jwt-auth.svg?style=flat-square)](http://hhvm.h4cc.de/package/tymon/jwt-auth)
-[![Latest Version](http://img.shields.io/packagist/v/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
-[![Latest Dev Version](https://img.shields.io/packagist/vpre/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth#dev-develop)
-[![Monthly Downloads](https://img.shields.io/packagist/dm/tymon/jwt-auth.svg?style=flat-square)](https://packagist.org/packages/tymon/jwt-auth)
+Build status: [![Build Status](https://travis-ci.org/thecsea/jwt-auth .svg?branch=master)](https://travis-ci.org/thecsea/jwt-auth ) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecsea/jwt-auth /badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/thecsea/jwt-auth /?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/thecsea/jwt-auth /badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/thecsea/jwt-auth /?branch=master) [![Build Status](https://scrutinizer-ci.com/g/thecsea/jwt-auth /badges/build.png?b=master)](https://scrutinizer-ci.com/g/thecsea/jwt-auth /build-status/master) [![Latest Stable Version](https://poser.pugx.org/thecsea/jwt-auth /v/stable)](https://packagist.org/packages/thecsea/jwt-auth ) [![Total Downloads](https://poser.pugx.org/thecsea/jwt-auth /downloads)](https://packagist.org/packages/thecsea/jwt-auth ) [![Latest Unstable Version](https://poser.pugx.org/thecsea/jwt-auth /v/unstable)](https://packagist.org/packages/thecsea/jwt-auth ) [![License](https://poser.pugx.org/thecsea/jwt-auth /license)](https://packagist.org/packages/thecsea/jwt-auth )
 
 See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation
 
-## License
+This is a fork of [tymondesings/jwt-auth](https://github.com/tymondesigns/jwt-auth/) that implements:
+
+* Standard laravel traits adapted to work with json call (no redirect) like [thecsea/laravel-noredirect-traits](https://github.com/thecsea/laravel-noredirect-traits) for normal login
+* Some improvements to traits to make them more customizable (it's possible use more than one credential)
+* Middleware improved, new middleware that joins the original two ones
+* ActingAs trait implemented for test
+* Custom claims fixed, now they are checked (even in middleware)
+
+# Examples and test
+New method are nto tested since they are used and tested directly in anothe project [dsd-meetme/backend](https://github.com/dsd-meetme/backend)
+
+# License
 
 The MIT License (MIT)
 
