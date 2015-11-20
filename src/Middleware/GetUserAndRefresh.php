@@ -23,7 +23,7 @@ class GetUserAndRefresh extends BaseMiddleware
         }else if ($this->auth->getUserModel()){
             $token = $this->auth->fromUser($this->auth->getUserModel(), $custom);
         }else {
-            return $this->respond('tymon.jwt.absent', 'token_not_provided', 400);
+            return $this->respond('tymon.jwt.absent', 'token_not_provided', 401);
         }
 
         try {
