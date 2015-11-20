@@ -1,5 +1,5 @@
 {
-    "name": "tymon/jwt-auth",
+    "name": "thecsea/jwt-auth",
     "description": "JSON Web Token Authentication for Laravel 4 and 5",
     "keywords": [
         "jwt",
@@ -9,7 +9,7 @@
         "laravel",
         "json web token"
     ],
-    "homepage": "https://github.com/tymondesigns/jwt-auth",
+    "homepage": "https://github.com/thecsea/jwt-auth",
     "license": "MIT",
     "authors": [
         {
@@ -17,6 +17,11 @@
             "email": "tymon148@gmail.com",
             "homepage": "http://tymondesigns.com",
             "role": "Developer"
+        },
+        {
+            "name": "claudio cardinale",
+            "email": "cardi@thecsea.it",
+            "homepage": "http://thecsea.it"
         }
     ],
     "require": {
