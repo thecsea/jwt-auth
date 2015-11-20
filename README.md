@@ -4,7 +4,7 @@
 
 Build status: [![Build Status](https://travis-ci.org/thecsea/jwt-auth .svg?branch=master)](https://travis-ci.org/thecsea/jwt-auth ) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thecsea/jwt-auth /badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/thecsea/jwt-auth /?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/thecsea/jwt-auth /badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/thecsea/jwt-auth /?branch=master) [![Build Status](https://scrutinizer-ci.com/g/thecsea/jwt-auth /badges/build.png?b=master)](https://scrutinizer-ci.com/g/thecsea/jwt-auth /build-status/master) [![Latest Stable Version](https://poser.pugx.org/thecsea/jwt-auth /v/stable)](https://packagist.org/packages/thecsea/jwt-auth ) [![Total Downloads](https://poser.pugx.org/thecsea/jwt-auth /downloads)](https://packagist.org/packages/thecsea/jwt-auth ) [![Latest Unstable Version](https://poser.pugx.org/thecsea/jwt-auth /v/unstable)](https://packagist.org/packages/thecsea/jwt-auth ) [![License](https://poser.pugx.org/thecsea/jwt-auth /license)](https://packagist.org/packages/thecsea/jwt-auth )
 
-See the [WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation
+See the [official WIKI](https://github.com/tymondesigns/jwt-auth/wiki) for documentation
 
 This is a fork of [tymondesings/jwt-auth](https://github.com/tymondesigns/jwt-auth/) that implements:
 
@@ -15,7 +15,7 @@ This is a fork of [tymondesings/jwt-auth](https://github.com/tymondesigns/jwt-au
 * Custom claims fixed, now they are checked (even in middleware)
 
 # Examples and test
-New method are nto tested since they are used and tested directly in anothe project [dsd-meetme/backend](https://github.com/dsd-meetme/backend)
+New method are not tested since they are used and tested directly in another project [dsd-meetme/backend](https://github.com/dsd-meetme/backend)
 
 # License
 
@@ -41,4 +41,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[![Gratipay](https://img.shields.io/gratipay/tymondesigns.svg?style=flat-square)](https://gratipay.com/~tymondesigns)
+# By [thecsea.it](http://www.thecsea.it)

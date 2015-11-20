@@ -64,6 +64,8 @@ abstract class BaseMiddleware
         $str = explode(';', $str);
         foreach($str as $value) {
             $tmp = explode('-', $value);
+            if(count($tmp) != 2)
+                return [];
             $ret[$tmp[0]] = $tmp[1];
         }
         return $ret;
