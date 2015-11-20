@@ -7,6 +7,7 @@ use Tymon\JWTAuth\Exceptions\InvalidClaimException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\Auth\AuthInterface;
 use Tymon\JWTAuth\Providers\User\UserInterface;
+use \Illuminate\Contracts\Auth\Authenticatable;
 
 class JWTAuth
 {
@@ -42,7 +43,7 @@ class JWTAuth
 
 
     /**
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var \Illuminate\Contracts\Auth\Authenticatable
      */
     protected $userModel = null;
 
@@ -61,7 +62,7 @@ class JWTAuth
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Contracts\Auth\Authenticatable
      */
     public function getUserModel()
     {
@@ -69,9 +70,9 @@ class JWTAuth
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model $userModel
+     * @param \Illuminate\Contracts\Auth\Authenticatable $userModel
      */
-    public function setUserModel($userModel)
+    public function setUserModel(Authenticatable $userModel)
     {
         $this->userModel = $userModel;
     }

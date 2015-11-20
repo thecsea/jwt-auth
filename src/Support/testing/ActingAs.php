@@ -19,7 +19,7 @@
 
 namespace Tymon\JWTAuth\Support\testing;
 
-use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Contracts\Auth\Authenticatable;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 /**
@@ -34,10 +34,11 @@ trait ActingAs
     /**
      * Set the currently logged in user for the application.
      *
-     * @param \Illuminate\Database\Eloquent\Model $user
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param  string|null  $driver
      * @return $this
      */
-    public function actingAs(Model $user)
+    public function actingAs(Authenticatable $user, $driver)
     {
         JWTAuth::setUserModel($user);
 
