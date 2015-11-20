@@ -110,15 +110,15 @@ trait ResetsPasswords
             array_merge($usernames , ['password', 'password_confirmation', 'token'])
         );
 
-        $intResp = '';
-        $response = Password::reset($credentials, function ($user, $password) use(&$intResp) {
-            $intResp = $this->resetPassword($user, $password);
+        $token = '';
+        $response = Password::reset($credentials, function ($user, $password) use(&$token) {
+            $token = $this->resetPassword($user, $password);
         });
 
         switch ($response) {
             case Password::PASSWORD_RESET:
-                return $intResp;
-
+                $request->headers->set('Authorization', 'Bearer ' . $token);
+                return new JsonResponse(['token' => $token], 200);
             default:
                 return new JsonResponse(['error' => trans($response)],422);
         }
@@ -139,7 +139,7 @@ trait ResetsPasswords
 
         $token = JWTAuth::fromUser($user, $this->customClaims());
 
-        return new JsonResponse(['token' => $token], 200);
+        return $token;
 
     }
 

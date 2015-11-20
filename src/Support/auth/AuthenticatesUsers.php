@@ -94,6 +94,8 @@ trait AuthenticatesUsers
             $this->clearLoginAttempts($request);
         }
 
+        $request->headers->set('Authorization', 'Bearer ' . $token);
+
         if (method_exists($this, 'authenticated')) {
             return $this->authenticated($request, $token);
         }
