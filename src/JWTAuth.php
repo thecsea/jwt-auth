@@ -78,9 +78,9 @@ class JWTAuth
     }
 
     /**
-     * @param \stdClass $userModel
+     * @param $userModel
      */
-    private function setUserModelAsObject (\stdClass $userModel)
+    private function setUserModelAsObject ($userModel)
     {
         $this->userModel = $userModel;
     }
