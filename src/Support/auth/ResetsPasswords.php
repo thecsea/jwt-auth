@@ -117,8 +117,9 @@ trait ResetsPasswords
 
         switch ($response) {
             case Password::PASSWORD_RESET:
-                $request->headers->set('Authorization', 'Bearer ' . $token);
-                return new JsonResponse(['token' => $token], 200);
+                $response = new JsonResponse(['token' => $token], 200);
+                $response->header('Authorization', 'Bearer ' . $token);
+                return $response;
             default:
                 return new JsonResponse(['error' => trans($response)],422);
         }

@@ -50,9 +50,9 @@ trait RegistersUsers
 
         $token = JWTAuth::fromUser($this->create($request->all()), $this->customClaims());
 
-        $request->headers->set('Authorization', 'Bearer ' . $token);
-        
-        return new JsonResponse(['token' => $token], 200);
+        $response = new JsonResponse(['token' => $token], 200);
+        $response->header('Authorization', 'Bearer ' . $token);
+        return $response;
     }
 
     /**
