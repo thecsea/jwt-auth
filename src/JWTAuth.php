@@ -77,6 +77,14 @@ class JWTAuth
         $this->userModel = $userModel;
     }
 
+    /**
+     * @param \stdClass $userModel
+     */
+    private function setUserModelAsObject (\stdClass $userModel)
+    {
+        $this->userModel = $userModel;
+    }
+
 
 
     /**
@@ -97,7 +105,7 @@ class JWTAuth
             return false;
         }
 
-        $this->setUserModel($user);
+        $this->setUserModelAsObject($user);
         return $user;
     }
 
@@ -159,7 +167,7 @@ class JWTAuth
         }
 
         $user = $this->auth->user();
-        $this->setUserModel($user);
+        $this->setUserModelAsObject($user);
         return $user;
     }
 
