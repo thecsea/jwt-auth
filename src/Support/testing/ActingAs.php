@@ -33,6 +33,7 @@ trait ActingAs
 {
     /**
      * Set the currently logged in user for the application.
+     * <strong>Caution:</strong> this disables the blacklist
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @param  string|null  $driver only for the compatibility with the original method
@@ -40,7 +41,8 @@ trait ActingAs
      */
     public function actingAs(Authenticatable $user, $driver = '')
     {
-        config(['jwt.blacklist_enabled' => 'false']);
+        $manager = (JWTAuth::manager());
+        $manager->setBlacklistEnabled(false);
         JWTAuth::setUserModel($user);
 
         return $this;
