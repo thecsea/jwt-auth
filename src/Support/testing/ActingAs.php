@@ -40,6 +40,7 @@ trait ActingAs
      */
     public function actingAs(Authenticatable $user, $driver = '')
     {
+        config(['jwt.blacklist_enabled' => 'false']);
         JWTAuth::setUserModel($user);
 
         return $this;
