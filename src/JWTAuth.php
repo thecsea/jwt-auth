@@ -97,6 +97,7 @@ class JWTAuth
             return false;
         }
 
+        $this->setUserModel($user);
         return $user;
     }
 
@@ -157,7 +158,9 @@ class JWTAuth
             return false;
         }
 
-        return $this->auth->user();
+        $user = $this->auth->user();
+        $this->setUserModel($user);
+        return $user;
     }
 
     /**
