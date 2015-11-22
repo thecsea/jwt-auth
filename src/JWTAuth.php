@@ -96,9 +96,6 @@ class JWTAuth
      */
     public function toUser($token = false)
     {
-        if(!$token && $this->getUserModel())
-            return $this->getUserModel();
-
         $payload = $this->getPayload($token);
 
         if (! $user = $this->user->getBy($this->identifier, $payload['sub'])) {
@@ -121,7 +118,9 @@ class JWTAuth
     {
         $payload = $this->makePayload($user->{$this->identifier}, $customClaims);
 
-        return $this->manager->encode($payload)->get();
+        $ret = $this->manager->encode($payload)->get();
+        $this->setUserModelAsObject($user);
+        return $ret;
     }
 
     /**
@@ -151,9 +150,6 @@ class JWTAuth
      */
     public function authenticate($token = false, $custom = [])
     {
-        if(!$token && $this->getUserModel())
-            return $this->getUserModel();
-
         $payload = $this->getPayload($token);
         $id = $payload->get('sub');
 
