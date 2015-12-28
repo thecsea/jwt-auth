@@ -11,7 +11,7 @@ This is a fork of [tymondesings/jwt-auth](https://github.com/tymondesigns/jwt-au
 * Standard laravel traits adapted to work with json call (no redirect) like [thecsea/laravel-noredirect-traits](https://github.com/thecsea/laravel-noredirect-traits) for normal login
 * Some improvements to traits to make them more customizable (it's possible use more than one credential)
 * Middleware improved, new middleware that joins the original two ones
-* ActingAs trait implemented for test
+* `ActingAs` trait implemented for test
 * Custom claims fixed, now they are checked (even in middleware)
 
 # Examples and test
