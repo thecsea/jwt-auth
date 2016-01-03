@@ -92,7 +92,7 @@ trait ThrottlesLogins
             $usernames = [$usernames];
         }
         return new JsonResponse([
-            implode('.', $usernames) => $this->getLockoutErrorMessage($seconds),
+            implode('.', $usernames) => [$this->getLockoutErrorMessage($seconds)],
         ], 422);
     }
 

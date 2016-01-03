@@ -76,7 +76,7 @@ trait AuthenticatesUsers
         }
 
         return new JsonResponse([
-            implode('.',$usernames) => $this->getFailedLoginMessage(),
+            implode('.',$usernames) => [$this->getFailedLoginMessage()],
         ], 422);
     }
 
